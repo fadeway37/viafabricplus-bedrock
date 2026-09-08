@@ -36,7 +36,7 @@ public final class ViaFabricPlusBedrock implements ViaFabricPlusEntrypoint {
 
     private static ViaFabricPlusBedrock INSTANCE;
 
-    private final Logger logger = LogManager.getLogger("ViaFabricPlus Bedrock");
+    private final Logger logger = LogManager.getLogger("ViaNeoForgePlus Bedrock");
 
     private BedrockSettings settings;
     private BedrockAccount account;

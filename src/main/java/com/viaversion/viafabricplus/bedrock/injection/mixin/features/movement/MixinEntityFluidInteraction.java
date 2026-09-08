@@ -46,7 +46,7 @@ public abstract class MixinEntityFluidInteraction {
     @Definition(id = "box", local = @Local(type = AABB.class, name = "box"))
     @Definition(id = "minY", field = "Lnet/minecraft/world/phys/AABB;minY:D")
     @Expression("fluidTop < box.minY")
-    @ModifyExpressionValue(method = "update", at = @At("MIXINEXTRAS:EXPRESSION"))
+    @ModifyExpressionValue(method = "update(Lnet/minecraft/world/entity/Entity;Ljava/util/function/Predicate;)V", at = @At("MIXINEXTRAS:EXPRESSION"))
     private boolean removeConditional(final boolean original) {
         if (ViaFabricPlus.api().targetVersion().equals(BedrockProtocolVersion.bedrockLatest)) {
             return false; // Equates to true due to the negation in the original code
@@ -56,7 +56,7 @@ public abstract class MixinEntityFluidInteraction {
     }
 
     // The fluid height is measured 0.4 below the entity, which is the same as adding 0.4 to the measured height
-    @ModifyVariable(method = "update", at = @At("STORE"), name = "entityY")
+    @ModifyVariable(method = "update(Lnet/minecraft/world/entity/Entity;Ljava/util/function/Predicate;)V", at = @At("STORE"), name = "entityY")
     private double adjustHeightCalculation(final double entityY) {
         if (ViaFabricPlus.api().targetVersion().equals(BedrockProtocolVersion.bedrockLatest)) {
             return entityY - 0.4;
@@ -66,7 +66,7 @@ public abstract class MixinEntityFluidInteraction {
     }
 
     // Dropping the threshold skips the scaling of the current in shallow fluids
-    @ModifyConstant(method = "update", constant = @Constant(doubleValue = 0.4))
+    @ModifyConstant(method = "update(Lnet/minecraft/world/entity/Entity;Ljava/util/function/Predicate;)V", constant = @Constant(doubleValue = 0.4))
     private double dontScaleCurrent(final double constant) {
         if (ViaFabricPlus.api().targetVersion().equals(BedrockProtocolVersion.bedrockLatest)) {
             return -1;

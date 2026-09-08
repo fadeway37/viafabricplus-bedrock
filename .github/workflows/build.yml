@@ -5,11 +5,18 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-26.04
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - name: Checkout Repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          persist-credentials: false
+      - name: Checkout matching NeoForge core release
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: fadeway37/ViaNeoForgePlus
+          ref: 5.0.1
+          path: core
           persist-credentials: false
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
@@ -22,7 +29,10 @@ jobs:
           distribution: 'temurin'
           java-version: 25
           check-latest: true
-      - name: Build with Gradle
+      - name: Build and publish core to MavenLocal
+        working-directory: core
+        run: ./gradlew build publishToMavenLocal --stacktrace
+      - name: Build and verify Bedrock addon
         run: ./gradlew build --stacktrace
       - name: Upload Artifacts to GitHub
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1

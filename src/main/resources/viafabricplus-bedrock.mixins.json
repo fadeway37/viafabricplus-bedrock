@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_25",
   "priority": 1001,
   "client": [
+    "compat.viabedrock.MixinFileSystemUtil",
     "jjwt.MixinClasses",
     "jjwt.MixinDefaultJwtParserBuilder",
     "core.access.MixinChunkTracker",
