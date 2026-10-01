@@ -4,7 +4,7 @@ import org.gradle.api.artifacts.component.ModuleComponentIdentifier
 plugins {
     `java-library`
     `maven-publish`
-    id("net.neoforged.moddev") version "2.0.141"
+    id("net.neoforged.moddev") version "2.0.147"
 }
 
 group = property("project_group") as String
@@ -112,8 +112,8 @@ dependencies {
     add("embedded", "net.raphimc:MinecraftAuth:5.0.2") {
         exclude(group = "com.google.code.gson", module = "gson")
     }
-    add("embedded", "dev.kastle.netty:netty-transport-raknet:1.7.0") { exclude(group = "io.netty") }
-    add("embedded", "dev.kastle.netty:netty-transport-nethernet:1.7.0") { exclude(group = "io.netty") }
+    add("embedded", "dev.kastle.netty:netty-transport-raknet:1.7.4") { exclude(group = "io.netty") }
+    add("embedded", "dev.kastle.netty:netty-transport-nethernet:1.7.4") { exclude(group = "io.netty") }
     arrayOf("windows-x86_64", "windows-aarch64", "linux-x86_64", "linux-aarch64", "macos-aarch64").forEach {
         add("embedded", "dev.kastle.webrtc:webrtc-java:1.0.3:$it")
     }
